@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <title>注册</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="./js/JQuery.min.js"></script>
+    <script src="./js/ValidateTool.js"></script>
+    <script src="./js/JQueryValidateTool.js"></script>
+    <script src="./js/JqueryAjaxTool.js"></script>
+    <script>
+        $(() => {
+            $("form").submit(function(e) {
+
+                var usernameFlag = validateInputAndShowErrMsg(
+                    $("input[name=username]"),
+                    ValidateTool.validateUsername(),
+                    "用户名为英文字母大小写和数字组成的3-16位字符"
+                )
+
+                var passwordFlag = validateInputAndShowErrMsg(
+                    $("input[name=password]"),
+                    ValidateTool.validatePassword(),
+                    "密码为英文字母大小写和数字组成的4-10位字符"
+                )
+
+
+                if (!isValidateSuccess(usernameFlag, passwordFlag)) {
+                    return false
+                }
+                loginValidateTest()
+                return false; //阻止表单提交
+            })
+
+            $("input[name=username]")
+                .keyup(function() {
+                    validateInputAndShowErrMsg(
+                        $(this),
+                        ValidateTool.validateUsername(),
+                        "用户名为英文字母大小写和数字组成的3-16位字符"
+                    )
+                })
+
+            $("#password")
+                .keyup(function() {
+                    $("input[name=password]").removeClass("input-error").next("span").remove()
+                    validatePassword($(this))
+                    if ($("#confirm_password").val() != ""){
+                        validatePassword( $("#confirm_password"))
+                    }else{
+                    $("#confirm_password").removeClass("input-error").next("span").remove()
+                    }
+                })
+
+            $("#confirm_password")
+                .keyup(function() {
+                    validatePassword($(this))
+                })
+
+            function validatePassword($input) {
+                var flag = validateInputAndShowErrMsg(
+                    $input,
+                    ValidateTool.validatePassword(),
+                    "密码为英文字母大小写和数字组成的4-10位字符"
+                )
+
+                if (!flag) {
+                    return
+                }
+
+                flag = validateInputAndShowErrMsg(
+                    $("#confirm_password"),
+                    ValidateTool.validateEqualTo($("#password").val()),
+                    "密码不相同"
+                )
+                return flag
+            }
+        })
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="form-container">
+            <form action="#">
+                <div class="row">
+                    <h2 style="text-align:center">注册</h2>
+
+                    <div class="col">
+                        <input type="text" name="username" placeholder="用户名" required>
+                        <input id="password" type="password" name="password" placeholder="密码" required>
+                        <input id="confirm_password" type="password" name="password" placeholder="确认密码" required>
+                        <input type="submit" value="提交">
+                        <input type="button" value="返回">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

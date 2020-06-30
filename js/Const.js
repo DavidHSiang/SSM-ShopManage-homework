@@ -1,5 +1,6 @@
 //URL
 let BASE_URL = "http://localhost:8080/"
+let LOGIN_URL = "login.html"
 let HOME_URL = "home.html"
 
 //API

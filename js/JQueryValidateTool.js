@@ -28,6 +28,7 @@ function validatePassword($input) {
     )
     return flag
 }
+
 function validateConfirmPassword($input, $passwordInput) {
     var flag = validatePassword($input)
     if (!flag) {
@@ -40,10 +41,12 @@ function validateConfirmPassword($input, $passwordInput) {
     )
     return flag
 }
-function validateUsername($input){
-    validateInputAndShowErrMsg(
+
+function validateUsername($input) {
+    var flag = validateInputAndShowErrMsg(
         $input,
         ValidateTool.validateUsername(),
         "用户名为英文字母大小写和数字组成的3-16位字符"
-      )
+    )
+    return flag
 }

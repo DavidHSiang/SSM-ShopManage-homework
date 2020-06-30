@@ -4,43 +4,33 @@
 <head>
     <meta charset="utf-8">
     <title>商铺管理系统</title>
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/home-new.css">
 </head>
 
 <body>
 
     <div class="topnav">
-        <a href="#">酒店管理系统</a>
-        <a href="#" style="float:right">个人信息</a>
+        <ul>
+            <li><a href="#">商铺管理系统</a></li>
+            <li style="float:right"><a href="#">个人信息</a></li>
+        </ul>
     </div>
 
-    <table>
-        <tr>
-            <td class="rightcolumn">
-                <a href="#">商铺管理</a>
-                <a href="#">用户管理</a>
-            </td>
-            <td class="rightcolumn">
-                <div>
-                    <div class="card">
-                        <h2>关于我</h2>
-                        <div class="fakeimg" style="height:100px;">图片</div>
-                        <p>关于我的一些信息..</p>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="leftnav">
+            <ul>
+                <li><a id="shop_manage_nav_a" class="active">商铺管理</a></li>
+                <li><a id="user_manage_nav_a" href="">用户管理</a></li>
+            </ul>
+        </div>
 
 
-    <!-- <div class="row">
+        <div class="rightcolumn">
+            <iframe src="http://localhost:8080/atguigu_ssm_crud_war/"></iframe>
 
-
-    </div> -->
-
-    <div class="footer">
-        <h2>底部区域</h2>
+        </div>
     </div>
+
 
 </body>
 

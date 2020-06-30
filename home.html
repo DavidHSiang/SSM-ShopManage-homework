@@ -3,191 +3,43 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DavidHSiang的博客</title>
-
+    <title>商铺管理系统</title>
+    <link rel="stylesheet" href="./css/home.css">
 </head>
 
 <body>
 
-    <div class="header">
-        <h1>DavidHSiang</h1>
-        <p>被世界遗忘的人</p>
-        <link rel="stylesheet" href="./css/home.css">
-
-        <script src="./js/JQuery.min.js"></script>
-        <script>
-            // 用于模拟从服务器得到的json对象 . 存储请求的状态码以及前十名热门文章
-            let hotPostsRequestBody = {
-                "status": 0,
-                "msg": "SUCCESS",
-                "data": [{
-                    "url": "#",
-                    "title": "jQuery学习笔记(一)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(二)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(三)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(四)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(五)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(六)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(七)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(八)-jQuery安装"
-                }, {
-                    "url": "#",
-                    "title": "jQuery学习笔记(九)-jQuery安装"
-                }]
-            }
-
-            let HOTPOSTS_PAGESIZE = 3
-            let ROTATIONSPEED = 2000
-
-            $(() => {
-                $("body").fadeIn("slow");
-                showHotPosts(hotPostsRequestBody)
-                $("#about-me").click(() => {
-                    $("#about-me-card").slideToggle()
-                })
-            })
-
-            function showHotPosts(request) {
-
-                var pages = Math.ceil((request.data.length) / HOTPOSTS_PAGESIZE)
-
-                for (let index = 0; index < pages; index++) {
-                    $(".hot-posts").append($("<ul id='hot-posts-page-" + index + "'></ul>").hide()) //.css("display", "none")
-                }
-
-                for (let index = 0; index < request.data.length; index++) {
-                    var element = request.data[index]
-
-                    var hotPostsA = $(" <a></a>")
-                        .attr("href", element.url)
-                        .append(index + 1 + ". " + element.title)
-
-                    var hotPostsLi = $(" <li></li>").append(hotPostsA)
-
-                    $("#hot-posts-page-" + Math.floor(index / HOTPOSTS_PAGESIZE)).append(hotPostsLi)
-                }
-                $("#hot-posts-page-0").show()
-                setInterval("hotPostsRotation()", ROTATIONSPEED);
-            }
-
-            function hotPostsRotation() {
-
-                $(".hot-posts :visible").first().slideUp(function() {
-
-                    if ($(this).next().length > 0) {
-                        $(this)
-                            .next().slideDown()
-                    } else {
-                        $("#hot-posts-page-0").slideDown()
-                    }
-                })
-            }
-        </script>
-    </div>
-
     <div class="topnav">
-        <a href="#">主页</a>
-        <a href="#">分类</a>
-        <a href="#">归档</a>
-        <a id="about-me" style="float:right">关于我</a>
+        <a href="#">酒店管理系统</a>
+        <a href="#" style="float:right">个人信息</a>
     </div>
 
-    <div class="row">
-        <div class="leftcolumn">
-            <div class="card">
-                <h1>jQuery学习笔记(一)-jQuery安装</h1>
-                <h5>2020 年 6 月 14日</h5>
-
-                <div class="article-entry">
-                    <h2 id="一、使用-JS文件">
-                        <a href="#一、使用-JS文件" title="一、使用.JS文件"></a>一、使用.JS文件
-                    </h2>
-                    <p>官网下载地址：<a href="https://jquery.com/download/" target="_blank" rel="noopener">https://jquery.com/download/</a></p>
-                    <blockquote>
-                        <p>导入.JS文件</p>
-                    </blockquote>
-                    <figure class="highlight html">
-                        <table>
-                            <tr>
-                                <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td>
-                                <td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery-1.10.2.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td>
-                            </tr>
-                        </table>
-                    </figure>
-                </div>
-
-
-            </div>
-            <div class="card">
-                <h1>jQuery学习笔记(二)-jQuery安装</h1>
-                <h5>2020 年 6 月 14日</h5>
-
-                <div class="article-entry">
-                    <h2 id="一、使用-JS文件">
-                        <a href="#一、使用-JS文件" title="一、使用.JS文件"></a>一、使用.JS文件
-                    </h2>
-                    <p>官网下载地址：<a href="https://jquery.com/download/" target="_blank" rel="noopener">https://jquery.com/download/</a></p>
-                    <blockquote>
-                        <p>导入.JS文件</p>
-                    </blockquote>
-                    <figure class="highlight html">
-                        <table>
-                            <tr>
-                                <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td>
-                                <td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery-1.10.2.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td>
-                            </tr>
-                        </table>
-                    </figure>
-                </div>
-
-            </div>
-        </div>
-        <div class="rightcolumn">
-            <div id="about-me-card" class="card">
-                <h2>关于我</h2>
-                <div class="about-me">
-                    <div class="head-img">
-                        <img src="http://davidhsiang.cn/assets/img/avatar.jpg" width="80" height="80" />
-                    </div>
-                    <div class="about-me-msg">
-                        <p>项大维</p>
-                        <p>软件1701</p>
-                    </div>
-                    <div class="friend-link">
-
-                        <a href="https://github.com/davidhsiang">Github</a>
-                        <a href="http://www.davidhsiang.cn">个人博客</a>
-
+    <table>
+        <tr>
+            <td class="rightcolumn">
+                <a href="#">商铺管理</a>
+                <a href="#">用户管理</a>
+            </td>
+            <td class="rightcolumn">
+                <div>
+                    <div class="card">
+                        <h2>关于我</h2>
+                        <div class="fakeimg" style="height:100px;">图片</div>
+                        <p>关于我的一些信息..</p>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <h3>热门文章</h3>
-                <div class="hot-posts">
+            </td>
+        </tr>
+    </table>
 
-                </div>
 
-            </div>
+    <!-- <div class="row">
 
-        </div>
-    </div>
+
+    </div> -->
 
     <div class="footer">
-        <p style="margin-left: 10px;"> © 2020 DavidHSiang</p>
+        <h2>底部区域</h2>
     </div>
 
 </body>

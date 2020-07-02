@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>商铺列表</title>
+    <link rel="stylesheet" href="./css/shop-list.css">
+    <script src="./js/JQuery.min.js"></script>
+    <script src="./js/Const.js"></script>
+    <script src="./js/JqueryAjaxTool.js"></script>
+    <script>
+        $(() => {
+            loadShops()
+        })
+
+        function loadShops() {
+            $.ajax({
+                // url: BASE_URL + "selectAllShops",
+                url: "http://localhost:8080/ShopManageSSM_war/selectAllShops",
+                type: "GET",
+                dataType: "json",
+                success: request => {
+                    if (isRequestSuccess(request)) {
+                        //查询成功
+                        //解析显示商铺列表
+                        build_shops_list(request)
+                    } else {
+                        //查询失败
+                        alert(request.msg)
+                        if (request.status == 10) {
+                            window.location.href = "login.html";
+                        }
+                    }
+                }
+            })
+        }
+
+        function build_shops_list(request) {
+            $(".row").empty()
+            var shops = request.data
+            $.each(shops, (index, item) => {
+                var fakeimg = $(" <div class='fakeimg' style='height:120px;''></div>")
+                var leftColumnDiv = $(" <div class='leftcolumn'></div>").append(fakeimg)
+
+                var shopsName = $(" <h2></h2>").append(
+                    $("<a href='shop-info.html'></a>").append(item.shopName).attr("href", "shop-info.html?shopId=" + item.shopId)
+                )
+                var shopsClass = $(" <span>商店类型: </span>").append(
+                    $("<code></code>").append(item.shopType)
+                )
+                var shopPhone = $(" <span>联系电话: </span>").append(
+                    $("<code></code>").append(item.shopPhone)
+                )
+                var shopAddress = $(" <span>商店地址: </span>").append(
+                    $("<code></code>").append(item.shopAddress)
+                )
+                var shopInfo = $(" <a>查看详情>></a>").attr("href", "shop-info.html?shopId=" + item.shopId)
+
+
+                var rightColumnDiv = $(" <div class='rightcolumn'></div>")
+                    .append(shopsName)
+                    .append(shopsClass)
+                    .append(shopPhone)
+                    .append(shopAddress)
+                    .append(shopInfo)
+
+                $(" <div class='card'></div>")
+                    .append(leftColumnDiv)
+                    .append(rightColumnDiv)
+                    .appendTo($(".row"))
+            })
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="row">
+        <!-- <div class="card">
+            <div class="leftcolumn">
+                <div class="fakeimg" style="height:120px;">商店图片</div>
+            </div>
+            <div class="rightcolumn">
+                <h2>
+                    <a href="#">永辉超市</a>
+                </h2>
+                <span>商店类型: <code>生活用品</code></span>
+                <span>联系电话: <code>13588888888</code></span>
+                <span>商店地址: <code>浙江工业大学之江学院</code></span>
+                <a href="#">查看详情>></a>
+            </div>
+
+        </div> -->
+    </div>
+
+
+</body>
+
+</html>

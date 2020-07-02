@@ -27,7 +27,7 @@
                 if (!isValidateSuccess(usernameFlag, passwordFlag)) {
                     return false
                 }
-                loginValidateTest()
+                loginValidate($("form").serialize())
                 return false; //阻止表单提交
             })
 

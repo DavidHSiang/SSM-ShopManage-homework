@@ -5,13 +5,80 @@
     <meta charset="utf-8">
     <title>商铺管理系统</title>
     <link rel="stylesheet" href="./css/home-new.css">
+    <script src="./js/JQuery.min.js"></script>
+    <script>
+        $(() => {
+            checkCookie()
+            $("#shop_list_nav_a").click(function() {
+                $("#shop_add_nav_a").removeClass("active")
+                $(this).addClass("active")
+                $("iframe").attr("src", "shop-list.html")
+                    // setCookie("iframeUrl", "shop-list.html", 30);
+                    // console.log(getCookie("iframeUrl"))
+            })
+            $("#shop_add_nav_a").click(function() {
+                $("#shop_list_nav_a").removeClass("active")
+                $(this).addClass("active")
+                $("iframe").attr("src", "shop-add.html")
+                    // setCookie("iframeUrl", "shop-add.html", 30);
+                    // console.log(getCookie("iframeUrl"))
+            })
+
+            $(window).unload(function() {
+                var iframeUrl = $("iframe").attr("src")
+                setCookie("iframeUrl", iframeUrl, 30);
+            })
+        })
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toGMTString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var iframeUrl = getCookie("iframeUrl");
+
+            // alert("iframeUrl:" + iframeUrl)
+            console.log("iframeUrl:" + iframeUrl)
+            if (iframeUrl != "") {
+                //有cookie
+                $("iframe").attr("src", iframeUrl)
+                if (iframeUrl == "shop-add.html") {
+                    $("#shop_list_nav_a").removeClass("active")
+                    $("#shop_add_nav_a").addClass("active")
+
+                }
+            } else {
+                //无cookie
+                $("iframe").attr("src", "shop-list.html")
+            }
+        }
+    </script>
 </head>
 
 <body>
 
     <div class="topnav">
         <ul>
-            <li><a href="#">商铺管理系统</a></li>
+            <li><a href="baidu.com">商铺管理系统</a></li>
             <li style="float:right"><a href="#">个人信息</a></li>
         </ul>
     </div>
@@ -19,15 +86,15 @@
     <div class="row">
         <div class="leftnav">
             <ul>
-                <li><a id="shop_manage_nav_a" class="active">商铺管理</a></li>
-                <li><a id="user_manage_nav_a" href="">用户管理</a></li>
+                <li><a id="shop_list_nav_a" class="active">附近商铺</a></li>
+                <li><a id="shop_add_nav_a">添加商铺</a></li>
             </ul>
         </div>
 
 
         <div class="rightcolumn">
-            <iframe src="http://localhost:8080/atguigu_ssm_crud_war/"></iframe>
-
+            <iframe src="shop-list.html">
+            </iframe>
         </div>
     </div>
 

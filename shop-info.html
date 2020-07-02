@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>商铺列表</title>
+    <link rel="stylesheet" href="./css/shop-list.css">
+    <script src="./js/JQuery.min.js"></script>
+    <script src="./js/Const.js"></script>
+    <script src="./js/JqueryAjaxTool.js"></script>
+    <style>
+        .star {
+            display: inline;
+            color: orange;
+        }
+    </style>
+    <script>
+        //获取 上一个搜索页面传来的参数  
+        var hrefText = window.location.href;
+        var data = hrefText.split("="); //截取 url中的“=”,获得“=”后面的参数  
+        var shopId = decodeURI(data[1]); //decodeURI解码
+        $(() => {
+            load_shop_info()
+            loadAppraises()
+        })
+
+        function loadAppraises() {
+            $.ajax({
+                // url: BASE_URL + "selectAllShops",
+                url: BASE_URL + "getAllAppraise?shopsId=" + shopId,
+                type: "GET",
+                dataType: "json",
+                success: request => {
+                    if (isRequestSuccess(request)) {
+                        //查询成功
+                        //解析显示商铺列表
+                        build_appraises_list(request)
+                    } else {
+                        //查询失败
+                        alert(request.msg)
+                        if (request.status == 10) {
+                            window.location.href = "login.html";
+                        }
+                    }
+                }
+            })
+        }
+
+        function load_shop_info() {
+            //http://localhost:8080/ShopManageSSM_war/selectShopsById?shopId=1
+            $.ajax({
+                // url: BASE_URL + "selectAllShops",
+                url: BASE_URL + "selectShopsById?shopId=" + shopId,
+                type: "GET",
+                dataType: "json",
+                success: request => {
+                    if (isRequestSuccess(request)) {
+                        //查询成功
+                        //解析显示商铺列表
+                        build_shop_info(request)
+                    } else {
+                        //查询失败
+                        alert(request.msg)
+                        if (request.status == 10) {
+                            window.location.href = "login.html";
+                        }
+                    }
+                }
+            })
+        }
+
+        function build_shop_info(request) {
+            var shop = request.data
+            $("#shopName").text(shop.shopName)
+            $("#shopType").text(shop.shopType)
+            $("#shopPhone").text(shop.shopPhone)
+            $("#shopAddress").text(shop.shopAddress)
+        }
+
+        function build_appraises_list(request) {
+            $("#appraises_list").empty()
+            var appraises = request.data
+            $.each(appraises, (index, item) => {
+
+                var starNum = Number(item.appraisePoint)
+
+                var star = ""
+
+                for (var i = 0; i < 5; i++) {
+                    if (i < starNum) {
+                        star += "★"
+                    } else {
+                        star += "☆"
+                    }
+                }
+                //             <div class="star">★★★★☆</div>
+                //         <p>好评好评好评好评好评好评好评好评好评好评好评好评</p>
+
+                var divLeftcolumn = $("<div class='leftcolumn' style='background-color:white;'></div>").append(
+                    $("<div class='fakeimg' style='background-color: white;'></div>").append(
+                        $("<h2 style=' margin-top: 0px;'></h2>").append(item.username + " : ")
+                    )
+                )
+
+                var divRightcolumn = $("<div class='rightcolumn' style=' margin-left: 0px; padding-left: 0px;'></div>").append(
+                    $(" <h2></h2>").append(
+                        $("<div class='star'></div>").append(star)
+                    )
+                ).append(
+                    $(" <p></p>").append(item.appraiseContent)
+                )
+
+                $("<div class='card'></div>").append(divLeftcolumn).append(divRightcolumn).appendTo($("#appraises_list"))
+            })
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="card">
+            <div class="leftcolumn">
+                <div class="fakeimg" style="height:120px;"></div>
+            </div>
+            <div class="rightcolumn">
+                <h2>
+                    <a id="shopName" href="#">永辉超市</a>
+                </h2>
+                <span>商店类型: <code  id="shopType">生活用品</code></span>
+                <span>联系电话: <code  id="shopPhone">13588888888</code></span>
+                <span>商店地址: <code  id="shopAddress">浙江工业大学之江学院</code></span>
+            </div>
+
+        </div>
+
+
+    </div>
+    <h2>商铺评价:</h2>
+
+
+    <div id="appraises_list" class="row">
+        <div class="card">
+            <div class="leftcolumn" style="background-color:white;">
+
+
+                <div class="fakeimg" style="background-color: white;">
+
+                    <h2 style=" margin-top: 0px;">Mary :</h2>
+                </div>
+            </div>
+            <div class="rightcolumn" style=" margin-left: 0px; padding-left: 0px;">
+                <h2>
+                    <div class="star">★★★★☆</div>
+                </h2>
+
+
+                <p>好评好评好评好评好评好评好评好评好评好评好评好评</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="leftcolumn" style="background-color:white;">
+
+
+                <div class="fakeimg" style="background-color: white;">
+
+                    <h2 style=" margin-top: 0px;">Tom :</h2>
+                </div>
+            </div>
+            <div class="rightcolumn" style=" margin-left: 0px; padding-left: 0px;">
+                <h2>
+                    <div class="star">★★★★☆</div>
+                </h2>
+
+
+                <p>好评好评好评好评好评好评好评好评好评好评好评好评</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="leftcolumn" style="background-color:white;">
+
+
+                <div class="fakeimg" style="background-color: white;">
+
+                    <h2 style=" margin-top: 0px;">Jack :</h2>
+                </div>
+            </div>
+            <div class="rightcolumn" style=" margin-left: 0px; padding-left: 0px;">
+                <h2>
+                    <div class="star">★★★★☆</div>
+                </h2>
+
+
+                <p>好评好评好评好评好评好评好评好评好评好评好评好评</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

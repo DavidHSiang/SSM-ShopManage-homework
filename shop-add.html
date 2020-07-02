@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <title>商铺添加</title>
+    <link rel="stylesheet" href="./css/login.css" />
+    <script src="./js/JQuery.min.js"></script>
+    <script src="./js/ValidateTool.js"></script>
+    <script src="./js/JQueryValidateTool.js"></script>
+    <script src="./js/JqueryAjaxTool.js"></script>
+    <script>
+        $(() => {
+            $("form").submit(function(e) {
+                $.ajax({
+                    // url: BASE_URL + "selectAllShops",
+                    url: BASE_URL + "postShop/shops",
+                    type: "POST",
+                    data: $("form").serialize(),
+                    dataType: "json",
+                    success: request => {
+                        if (isRequestSuccess(request)) {
+                            //查询成功
+                            //解析显示商铺列表
+                            alert(request.msg)
+                            window.location.href = "shop-list.html";
+                        } else {
+                            //查询失败
+                            alert(request.msg)
+                            if (request.status == 10) {
+                                window.location.href = "login.html";
+                            }
+                        }
+                    }
+                })
+                return false; //阻止表单提交
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form action="#">
+                <div class="row">
+                    <h2 style="text-align: center;">商铺添加</h2>
+
+                    <div class="col">
+                        <input type="text" name="shopName" placeholder="商铺名" required />
+                        <input type="text" name="shopType" placeholder="商铺类型" required />
+                        <input type="text" name="shopPhone" placeholder="联系电话" required />
+                        <input type="text" name="shopAddress" placeholder="商铺地址" required />
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

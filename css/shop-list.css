@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial;
+    padding: 10px;
+    background: #f1f1f1;
+}
+
+a,
+span,
+p {
+    color: #696969;
+}
+
+
+/* 图像部分 */
+
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+
+/* 文章卡片效果 */
+
+.card {
+    background-color: white;
+    /* padding: 20px; */
+    margin-top: 20px;
+    height: auto;
+    overflow: auto;
+    /* height: 160px; */
+}
+
+
+/* 列后面清除浮动 */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+h2 {
+    font-family: lucida grande, lucida sans unicode, lucida, helvetica, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+    font-size: 26px;
+    font-weight: 300;
+}
+
+h2 a {
+    font-size: 26px;
+    margin-left: 0;
+    line-height: 35px;
+    margin-bottom: 20px;
+    transition: color .3s;
+    text-decoration: none;
+}
+
+span {
+    display: inline-block;
+    font-size: 15px;
+    font-family: Menlo, Monaco, Andale Mono, lucida console, Courier New, monospace;
+    text-shadow: 0 1px #fff;
+    padding-bottom: 10px;
+}
+
+
+/* 创建两列 */
+
+
+/* Left column */
+
+.rightcolumn {
+    float: left;
+    width: 75%;
+    padding-left: 20px;
+}
+
+
+/* 右侧栏 */
+
+.leftcolumn {
+    float: left;
+    /* width: 120px; */
+    background-color: #f1f1f1;
+}
+
+span:after {
+    content: " | ";
+}
